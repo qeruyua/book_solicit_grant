@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html class="x-admin-sm">
+
+<head>
+    <meta charset="UTF-8">
+    <link href="../../css/bootstrap.min.css" rel="stylesheet" />
+    <link href="../../css/layui.css" rel="stylesheet" />
+    <script src="../../js/vue.min.js" charset="utf-8"></script>
+    <script src="../../js/reqwest.js" charset="utf-8"></script>
+</head>
+
+<body>
+<div id="app">
+<table class="table table-striped">
+    <thead>
+    <tr >
+        <th>
+            <input type="checkbox" name="" lay-skin="">
+        </th>
+        <th>ID</th>
+        <th>书籍名</th>
+        <th>书号</th>
+        <th>作者</th>
+        <th>价格</th>
+        <th>数量</th>
+        <th>购买时间</th>
+        <th>
+            删除订单
+        </th>
+    </thead>
+    <tbody>
+    <tr v-for="a in messages">
+        <td>
+            <input type="checkbox" name="" lay-skin="primary"></td>
+        <th>{{a[2]}}</th>
+        <th>{{a[3]}}</th>
+        <th>{{a.booknum}}</th>
+        <th>{{a.author}}</th>
+        <td>{{a[6]}}</td>
+        <td>{{a[4]}}</td>
+        <td>{{a[5]}}</td>
+        <td>
+            <div title="删除" @click="del(a[0])">
+                <i class="layui-icon">删除</i></div>
+        </td>
+    </tr>
+
+    </tbody>
+</table>
+</div>
+</body>
+<script>
+    var bookinfo=new Vue({
+        el:'#app',
+        data:{
+            messages:[],
+        },
+        mounted(){
+            this.getinfo();
+        },
+        methods:{
+            getinfo(){
+                var self=this;
+                reqwest({
+                    url: 'http://127.0.0.1/ruangong/osiris/controller/admin/showUserBook.php'
+                    , type: 'json'
+                    , method: 'get'
+                    , contentType: 'application/json'
+                    , error: function (err) {
+                        console.log(this.url + "请求失败")
+                    }
+                    , success: function (resp) {
+                        self.messages = resp;
+                        console.log(self.messages)
+                    }
+                })
+            },
+            del(id) {
+                let self = this;
+                reqwest({
+                    url: ' http://127.0.0.1/ruangong/osiris/controller/admin/delpayinfo.php'
+                    , type: 'json'
+                    , method: 'post'
+                    , data: {
+                        id:id
+                    }
+                    , error: function (err) {
+                        alert(this.url + "请求失败")
+                    }
+                    , success: function (resp) {
+                        self.message = resp;
+                        alert(self.message)
+                    }
+                })
+            },
+        },
+    });
+</script>
+</html>

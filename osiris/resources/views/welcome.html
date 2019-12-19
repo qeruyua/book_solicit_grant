@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- CSRF Token -->
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
+    <title>教材征订与发放系统</title>
+    <link rel="shortcut icon" href="../img/logo.ico">
+    <!-- Fonts -->
+    <!--<link rel="dns-prefetch" href="//fonts.gstatic.com">-->
+    <!--<link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet" type="text/css">-->
+
+    <!-- Styles -->
+    <!--<link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />-->
+    <!-- CSS Files -->
+    <link href="../css/bootstrap.min.css" rel="stylesheet" />
+    <link href="../css/now-ui-dashboard.css" rel="stylesheet" />
+    <!--<link href="../layui/css/layui.css" rel="stylesheet" />-->
+
+    <link href="../css/demo.css" rel="stylesheet" />
+    <link  href="../cropper/cropper.css" rel="stylesheet">
+
+
+    <script src="./js/core/jquery.min.js"></script>
+    <script src="./js/vue/dist/vue.js"></script>
+    <script src="./js/vue-resource/dist/vue-resource.js"></script>
+    <script src="./js/vue-router.js"></script>
+    <!--<script src="./.../layui/layui.js"></script>-->
+    <!--<script type="text/javascript" src="https://www.echartsjs.com/gallery/vendors/echarts/echarts.min.js"></script>-->
+    <style>
+        .layui-upload-file{
+            display: none;
+        }
+        .likeA{
+            background:none;
+            border: none;
+            color: #1E9FFF;
+            cursor: pointer;
+        }
+        body .layui-layer-content{padding: 10px}
+        body .demo-class .layui-layer-title{background:#f96332; color:#fff; border: none;}
+        body .demo-class .layui-layer-btn0{border-radius: 7px;background-color: #1E9FFF;color: #fff}
+    </style>
+</head>
+<body>
+
+<div class="wrapper ">
+    <div id="page">
+    <div class="sidebar" data-color="orange">
+        <div class="logo">
+            <p class="simple-text logo-normal">
+                教材征订与发放系统
+            </p>
+        </div>
+        <div class="sidebar-wrapper">
+            <ul class="nav">
+                <li>
+                    <a onclick="booksolicit()">
+                        <i class="now-ui-icons education_agenda-bookmark"></i>
+                        <p>
+                            教材征订
+                        </p>
+                    </a>
+                </li>
+                <li>
+
+                        <a onclick="bookgrant()">
+                            <i class="now-ui-icons education_atom "></i>
+                            <p>教材发放</p>
+                        </a>
+                </li>
+                <li>
+                    <a onclick="bookinfo()">
+                        <i class="now-ui-icons users_single-02"></i>
+                        <p>已购买书籍</p>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    </div>
+    <div class="main-panel">
+
+    <nav class="navbar navbar-expand-lg navbar-transparent  navbar-absolute bg-primary fixed-top">
+
+        <div class="container-fluid">
+            <div class="navbar-wrapper">
+                <div class="navbar-toggle">
+                    <button type="button" class="navbar-toggler">
+                        <span class="navbar-toggler-bar bar1"></span>
+                        <span class="navbar-toggler-bar bar2"></span>
+                        <span class="navbar-toggler-bar bar3"></span>
+                    </button>
+                </div>
+            </div>
+            <div class="navbar-wrapper">
+
+            </div>
+
+            <div class="collapse navbar-collapse justify-content-end" id="navigation">
+
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" title="退出" href="./auth/login.html">
+                            <i class="now-ui-icons users_single-02"></i>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+        </div>
+
+    </nav>
+
+    <!-- End Navbar -->
+
+    <div class="panel-header panel-header-lg" style="background: #85c2b0"   id="zhuTu1" >
+        <div class="container"  id="container0" style="height: 100%">
+
+
+        </div>
+    </div>
+        <div id="replace">
+            <font size="10" style="text-align: right">欢迎登陆
+            </font>
+        </div>
+    </div>
+
+</div>
+</body>
+
+<script>
+
+    function booksolicit()
+    {
+        var str=document.getElementById("replace")
+        str.innerHTML="<iframe frameborder='0' width='100%' height='1000' marginheight='0' marginwidth='0' scrolling='no' src='./student/booksolicit.html'></iframe>";
+    }
+    function bookgrant()
+    {
+        var str=document.getElementById("replace")
+        str.innerHTML="<iframe frameborder='0' width='100%' height='1000' marginheight='0' marginwidth='0' scrolling='no' src='./student/bookgrant.html'></iframe>";
+    }
+    function bookinfo()
+    {
+        var str=document.getElementById("replace")
+        str.innerHTML="<iframe frameborder='0' width='100%' height='1000' marginheight='0' marginwidth='0' scrolling='no' src='./student/bookinfo.html'></iframe>";
+    }
+</script>
+
+</html>

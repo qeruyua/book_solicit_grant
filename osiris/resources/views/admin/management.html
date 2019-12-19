@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html class="x-admin-sm">
+
+<head>
+    <meta charset="UTF-8">
+    <link href="../../css/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <script src="../../js/jquery.min.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+    <script src="../../js/vue.min.js" charset="utf-8"></script>
+    <script src="../../js/reqwest.js" charset="utf-8"></script>
+</head>
+
+<body>
+<button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">添加信息</button>
+<!-- 模态框（Modal） -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel">添加教师和班级信息</h4>
+            </div>
+            <form class="form-horizontal" action="../../../controller/admin/addinfo.php" method="post">
+                <div class="form-group">
+                    <label for="firstname" class="col-sm-2 control-label">教师名</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="firstname" name="teachername" placeholder="请输入教师名">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="lastname" class="col-sm-2 control-label">班级号</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="lastname" name="classnum" placeholder="请输入班级号">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10">
+                        <button type="submit" class="btn btn-default">提交</button>
+                    </div>
+                </div>
+            </form>
+
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
+<div id="app">
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>
+                <input type="checkbox" name="" lay-skin="">
+            </th>
+            <th>教师名</th>
+            <th>班号</th>
+            <th>操作</th>
+        </thead>
+        <tbody>
+        <tr v-for="a in messages">
+            <td>
+                <input type="checkbox" name="" lay-skin="primary"></td>
+            <td>{{a[0]}}</td>
+            <td>{{a[1]}}</td>
+            <td>
+                <div title="删除" @click="del(a[0],a[1])">
+                    <i class="layui-icon">删除</i></div>
+            </td>
+
+        </tr>
+
+        </tbody>
+    </table>
+</div>
+</body>
+<!--<script src="../../js/management.js"></script>-->
+<script>
+    var bookinfo=new Vue({
+        el:'#app',
+        data:{
+            messages:[]
+        },
+        mounted(){
+            this.getinfo();
+        },
+        methods:{
+            getinfo(){
+                var self=this;
+                reqwest({
+                    url: ' http://127.0.0.1/ruangong/osiris/controller/admin/showinfo.php'
+                    , type: 'json'
+                    , method: 'get'
+                    , contentType: 'application/json'
+                    , error: function (err) {
+                        console.log(this.url + "请求失败")
+                    }
+                    , success: function (resp) {
+                        self.messages = resp;
+                        console.log(self.messages)
+                    }
+                })
+            },
+
+            del(teacher,cl) {
+                alert(teacher);
+                let self = this;
+                reqwest({
+                    url: ' http://127.0.0.1/ruangong/osiris/controller/admin/delmanagement.php'
+                    , type: 'json'
+                    , method: 'post'
+                    , data: {
+                        teacher: teacher,
+                        cl:cl,
+                    }
+                    , error: function (err) {
+                        alert(this.url + "请求失败")
+                    }
+                    , success: function (resp) {
+                        self.message = resp;
+                        alert(self.message)
+                    }
+                })
+            },
+        },
+    });
+</script>
+</html>

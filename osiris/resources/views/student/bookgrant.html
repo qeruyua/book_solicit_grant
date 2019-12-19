@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html class="x-admin-sm">
+
+<head>
+    <meta charset="UTF-8">
+    <link href="../../css/bootstrap.min.css" rel="stylesheet" />
+    <script src="../../js/vue.min.js" charset="utf-8"></script>
+    <script src="../../js/reqwest.js" charset="utf-8"></script>
+</head>
+
+<body>
+
+<div id="app">
+    <table class="table table-striped">
+        <thead>
+        <tr >
+            <th>
+                <input type="checkbox" name="" lay-skin="">
+            </th>
+            <th>书籍名</th>
+            <th>书号</th>
+            <th>作者</th>
+            <th>发放状态</th>
+            <th>发放地点</th>
+            <th>发放时间</th>
+        </thead>
+        <tbody>
+        <tr id="tr1" v-for="a in messages">
+
+            <td>
+                <input type="checkbox" name="" lay-skin="primary"></td>
+            <td>{{a.bookname}}</td>
+            <td>{{a.booknum}}</td>
+            <td>{{a.author}}</td>
+            <td>{{a[1]}}</td>
+            <td>{{a[2]}}</td>
+            <td>{{a[3]}}</td>
+        </tr>
+
+        </tbody>
+    </table>
+</div>
+</body>
+<script>
+    var bookinfo=new Vue({
+        el:'#app',
+        data:{
+            messages:[],
+        },
+        mounted(){
+            this.getinfo();
+        },
+        methods:{
+            getinfo(){
+                var self=this;
+                reqwest({
+                    url: 'http://127.0.0.1/ruangong/osiris/controller/admin/showgrant.php'
+                    , type: 'json'
+                    , method: 'get'
+                    , contentType: 'application/json'
+                    , error: function (err) {
+                        console.log(this.url + "请求失败")
+                    }
+                    , success: function (resp) {
+                        self.messages = resp;
+                        console.log(self.messages)
+                    }
+                })
+            },
+        },
+    });
+</script>
+</html>
